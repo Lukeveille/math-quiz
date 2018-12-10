@@ -1,0 +1,80 @@
+/* Main Elements */
+body,
+input,
+option {
+    text-align: center;
+}
+input,
+select {
+    display: block;
+    margin: auto;
+    margin-bottom: 18px;
+}
+ul {
+    list-style-type: none;
+}
+td {
+    text-align: center;
+    font-weight: normal;
+}
+button,
+input[type=button] {
+    border: none;
+    margin: auto;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+table {
+    margin-bottom: 1em;
+}
+
+/* Classes */
+.fontStyle, .qBox {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.qBox {
+    display: inline-block;
+}
+.game-box {
+    background-color: rgb(57, 141, 209);
+    border-radius: 15px;
+    box-shadow: 5px 5px 16px #000;
+    display: inline-block;
+    margin-top: 30px;
+    min-width: 300px;
+    padding: 50px 30px 50px 30px;
+    font-weight: bold;
+}
+.messages {
+    margin-top: 30px;
+    position: relative;
+    font-weight: bold;
+}
+
+/* IDs */
+#start {
+    display: inline-block;
+}
+#vanilla-dom {
+    /* display: none; */
+    display: block;
+}
+#prompts .game-box {
+    padding: .5em;
+    border: 1px solid rgb(57, 141, 209);
+    cursor: pointer;
+    transition: .2s;
+    /* color: white; */
+}
+#prompts .game-box:hover {
+    border: 1px solid rgb(117, 192, 253);
+    box-shadow: 1px 1px 4px #000;
+    color: white;
+}
+#prompts .game-box:active {
+    box-shadow: none;
+    color: white;
+    transition: 0s;
+}
