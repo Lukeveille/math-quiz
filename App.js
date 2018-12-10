@@ -1,6 +1,7 @@
 function GameBox() {
   return (
     <div>
+      <h1>REACT</h1>
       Highest integer you'd like to see:
       <input id="range" value="12" type="text" class="fontStyle" size="5" />
       How many questions?

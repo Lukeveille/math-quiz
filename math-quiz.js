@@ -383,9 +383,4 @@ document.addEventListener('DOMContentLoaded', () => {
         msgBox.setAttribute('style', 'color: red');
         msgBox.innerHTML = 'INCORRECT! The answer is ' + a;
     }
-
-    // Version Selection
-    let versionSelection = document.querySelector('#version')
-    versionSelection.addEventListener("change", function() {alert(versionSelection.value)});
-
 })

@@ -57,12 +57,9 @@ table {
 #start {
     display: inline-block;
 }
-#vanilla-dom {
-    /* display: none; */
-    display: block;
-}
 #prompts .game-box {
     padding: .5em;
+    margin: 5em;
     border: 1px solid rgb(57, 141, 209);
     cursor: pointer;
     transition: .2s;
@@ -77,4 +74,16 @@ table {
     box-shadow: none;
     color: white;
     transition: 0s;
+}
+#version {
+    margin: 0 auto;
+    font-size: 1em;
+}
+
+/* Display controls */
+.display-none {
+    display: none;
+}
+.display-block {
+    display: block;
 }
