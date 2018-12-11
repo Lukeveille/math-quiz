@@ -24,6 +24,7 @@ input[type=button] {
     border-radius: 5px;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
 }
 table {
     margin-bottom: 1em;
@@ -47,6 +48,11 @@ table {
     padding: 50px 30px 50px 30px;
     font-weight: bold;
 }
+.react {
+    background: linear-gradient(to bottom right, #398DD1 0%, #34C7E8 100%);
+}
+.react 
+
 .messages {
     margin-top: 30px;
     position: relative;
@@ -78,6 +84,17 @@ table {
 #version {
     margin: 0 auto;
     font-size: 1em;
+}
+#mathType {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#mathType p {
+    font-size: .7em;
+    font-weight: 500;
+}
+#mathType input {
+    cursor: pointer;
 }
 
 /* Display controls */

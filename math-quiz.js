@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function defaultScreen() {
         score = 0;
         q = 0;
-        scoreBoard = new Array();   
+        scoreBoard = new Array(); 
     
         msgBox.innerHTML = '';
         clearParams();
@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setAttributes(rangeBox, {'id': 'range', 'value': range, 'type': 'text', 'class': 'fontStyle', 'size': '5'});
         setAttributes(qBox, {'id': 'questions', 'value': questions, 'type': 'text', 'class': 'fontStyle', 'size': '5'});
         setAttributes(typeSelect, {'id': 'mathType', 'class': 'fontStyle', 'type': 'select'});
-        setAttributes(startButton, {'type': 'button', 'class': 'fontStyle', 'value': 'Let\'s do some math!', 'id': 'start', 'onMouseUp': 'initialize()'});
+        setAttributes(startButton, {'type': 'button', 'class': 'fontStyle', 'value': 'Let\'s do some math!', 'id': 'start'});
+        startButton.addEventListener('mouseup', () => {initialize()})
     
         startButton.innerHTML='Let\'s do some math!';
     
@@ -160,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         switch(mathType) {
             case '1':
-            button1.setAttribute('onMouseUp', 'addSubAnswr(rand1, rand2, posNeg)');
+            button1.addEventListener('mouseup', () => {addSubAnswr(rand1, rand2, posNeg)});
             document.getElementById('submit').onkeyup = function(event){
                 if (event.keyCode == 13 || event.which == 13){
                     addSubAnswr(rand1, rand2, posNeg);
@@ -174,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
     
             case '2':
-            button1.setAttribute('onMouseUp', 'multAnswr(rand1, rand2)');
+            button1.addEventListener('mouseup', () => {multAnswr(rand1, rand2)});
             document.getElementById('submit').onkeyup = function(event){
                 if (event.keyCode == 13 || event.which == 13){
                     multAnswr(rand1, rand2);
@@ -188,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
     
             case '3':
-            button1.setAttribute('onMouseUp', 'dividAnswr(rand1, rand2)');
+            button1.addEventListener('mouseup', () => {dividAnswr(rand1, rand2)});
             document.getElementById('submit').onkeyup = function(event){
                 if (event.keyCode == 13 || event.which == 13){
                     dividAnswr(rand1, rand2);
@@ -247,7 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (answr == (result)) {
             correct();
     
-            setAttributes(subButton, {'value': 'Next Question', 'onMouseUp': 'questionThread()'});
+            setAttributes(subButton, {'value': 'Next Question'});
+            subButton.addEventListener('mouseup', () => { questionThread() });
     
             document.getElementById('submit').onkeyup = function(event){
                 if (event.keyCode == 13 || event.which == 13){
@@ -269,7 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             incorrect(result);
     
-            setAttributes(subButton, {'value': 'Next Question', 'onMouseUp': 'questionThread()'});
+            setAttributes(subButton, {'value': 'Next Question'});
+            subButton.addEventListener('mouseup', () => { questionThread() });
     
             document.getElementById('submit').onkeyup = function(event){
                 if (event.keyCode == 13 || event.which == 13){
@@ -296,7 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
         p3.innerHTML='YOU SCORED ' + score + ' / ' + questions;
     
         setChild(params, {p3, button2, p4});
-        setAttributes(button2, {'id': 'newQuiz', 'type': 'button', 'value': 'New Quiz', 'onMouseUp': 'defaultScreen()'});
+        setAttributes(button2, {'id': 'newQuiz', 'type': 'button', 'value': 'New Quiz'});
+        button2.addEventListener('mouseup', () => { defaultScreen() });
         
         p4.appendChild(button3);
     
@@ -309,7 +313,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
     
-        setAttributes(button3, {'id': 'scoreButton', 'type': 'button', 'value': 'Quiz Review', 'onMouseUp': 'scoreScreen()'});
+        setAttributes(button3, {'id': 'scoreButton', 'type': 'button', 'value': 'Quiz Review'});
+        button3.addEventListener('mouseup', () => { scoreScreen() });
+
         document.getElementById('scoreButton').onkeyup = function(event){
             if (event.keyCode == 13 || event.which == 13) {
                 scoreScreen();
@@ -338,7 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
         params.innerHTML='<p>YOU SCORED ' + score + ' / ' + questions + '</p>' + table;
         params.appendChild(button4);
     
-        setAttributes(button4, {'id': 'newQuiz', 'type': 'button', 'value': 'New Quiz', 'onMouseUp': 'defaultScreen()'});
+        setAttributes(button4, {'id': 'newQuiz', 'type': 'button', 'value': 'New Quiz'});
+        button4.addEventListener('mouseup', () => { defaultScreen() });
     
         document.getElementById("newQuiz").onkeyup = function(event){
             if (event.keyCode == 13 || event.which == 13){
@@ -368,19 +375,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Display functions for error, correct, and incorrect responses.
     function error() {
-        msgBox.setAttribute('style', 'color: red');
+        msgBox.setAttribute('style', 'color: #f00');
         msgBox.innerHTML = 'INPUT ERROR! Must enter positive integer';
     }
     function qError() {
-        msgBox.setAttribute('style', 'color: red');
+        msgBox.setAttribute('style', 'color: #f00');
         msgBox.innerHTML = 'INPUT ERROR! Must enter integer';
     }
     function correct() {
-        msgBox.setAttribute('style', 'color: green');
+        msgBox.setAttribute('style', 'color: #0f0');
         msgBox.innerHTML = 'CORRECT!';
     }
     function incorrect(a) {
-        msgBox.setAttribute('style', 'color: red');
+        msgBox.setAttribute('style', 'color: #f00');
         msgBox.innerHTML = 'INCORRECT! The answer is ' + a;
     }
 })
