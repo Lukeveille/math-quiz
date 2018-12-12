@@ -58,7 +58,7 @@ function ScoreScreen(props) {
         <td>=</td>
         <td>&nbsp;</td>
         <td>{question[3]}</td>
-        {question[3] == question[4]? '' : <td style={{color: '#f00'}}>{question[3]}</td>}
+        {question[3] == question[4]? '' : <td style={{color: '#f00'}}>{question[4]}</td>}
       </tr>
     </tbody>
   });
