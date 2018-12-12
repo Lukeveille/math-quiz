@@ -53,12 +53,12 @@ function ScoreScreen(props) {
         <td>{i+1}</td>
         <td>&nbsp;</td>
         <td>{question[0]}</td>
-        <td>{props.op}</td>
         <td>{question[1]}</td>
+        <td>{question[2]}</td>
         <td>=</td>
         <td>&nbsp;</td>
-        <td>{question[2]}</td>
-        {question[2] == question[3]? '' : <td style={{color: '#f00'}}>{question[3]}</td>}
+        <td>{question[3]}</td>
+        {question[3] == question[4]? '' : <td style={{color: '#f00'}}>{question[3]}</td>}
       </tr>
     </tbody>
   });
@@ -189,7 +189,7 @@ class App extends React.Component {
         break;
     }
     this.setState(prevState => {
-      prevState.scoreBoard.push([this.mathType === 3? this.state.rand1 * this.state.rand2 : this.state.rand1, this.state.rand2, result, this.state.answer])
+      prevState.scoreBoard.push([this.mathType === 3? this.state.rand1 * this.state.rand2 : this.state.rand1, this.state.op, this.state.rand2, result, this.state.answer])
       return {
       error: result == this.state.answer? {
         msg: 'CORRECT',
