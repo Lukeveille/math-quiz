@@ -64,7 +64,7 @@ table {
 }
 #prompts .game-box {
     padding: .5em;
-    margin: 5em;
+    margin: 5em auto;
     border: 1px solid rgb(57, 141, 209);
     cursor: pointer;
     transition: .2s;

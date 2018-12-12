@@ -5,7 +5,7 @@ function DefaultScreen(props) {
   return (
     <div>
       Highest integer you'd like to see:
-      <input id="range" value={props.range} type="text" className="fontStyle" size="5" autoComplete="off" onChange={e => props.updateInput(e)} />
+      <input id="range" value={props.range} type="text" className="fontStyle" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : ''}} />
       How many questions?
       <input autoFocus selected="selected" id="questions" value={props.questions} type="text" className="fontStyle" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : ''}} />
       <div id="mathType" className="fontStyle">
