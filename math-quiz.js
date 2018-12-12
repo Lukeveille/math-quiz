@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setChild(params, {hiInteger, rangeBox, qCount, qBox, typeSelect, startButton});
         setChild(typeSelect, {option1, option2, option3});
     
-        setAttributes(rangeBox, {'id': 'range', 'value': range, 'type': 'text', 'class': 'fontStyle', 'size': '5'});
-        setAttributes(qBox, {'id': 'questions', 'value': questions, 'type': 'text', 'class': 'fontStyle', 'size': '5'});
+        setAttributes(rangeBox, {'id': 'range', 'value': range, 'type': 'text', 'class': 'fontStyle', 'size': '5', 'autoComplete': 'off'});
+        setAttributes(qBox, {'id': 'questions', 'value': questions, 'type': 'text', 'class': 'fontStyle', 'size': '5', 'autoComplete': 'off'});
         setAttributes(typeSelect, {'id': 'mathType', 'class': 'fontStyle', 'type': 'select'});
         setAttributes(startButton, {'type': 'button', 'class': 'fontStyle', 'value': 'Let\'s do some math!', 'id': 'start'});
         startButton.addEventListener('mouseup', () => {initialize()})
@@ -298,13 +298,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
         p3.innerHTML='YOU SCORED ' + score + ' / ' + questions;
     
+        setAttributes(button2, {'id': 'scoreButton', 'type': 'button', 'value': 'Quiz Review'});
         setChild(params, {p3, button2, p4});
-        setAttributes(button2, {'id': 'newQuiz', 'type': 'button', 'value': 'New Quiz'});
-        button2.addEventListener('mouseup', () => { defaultScreen() });
+        button2.addEventListener('mouseup', () => { scoreScreen() });
+        setAttributes(button3, {'id': 'newQuiz', 'type': 'button', 'value': 'New Quiz'});
+        button3.addEventListener('mouseup', () => { defaultScreen() });
         
         p4.appendChild(button3);
-    
+        
         button2.focus();
+        
         document.getElementById('newQuiz').onkeyup = function(event){
             if (event.keyCode == 13 || event.which == 13) {
                 defaultScreen();
@@ -312,9 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 button3.focus();
             }
         };
-    
-        setAttributes(button3, {'id': 'scoreButton', 'type': 'button', 'value': 'Quiz Review'});
-        button3.addEventListener('mouseup', () => { scoreScreen() });
+        
 
         document.getElementById('scoreButton').onkeyup = function(event){
             if (event.keyCode == 13 || event.which == 13) {
@@ -383,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         msgBox.innerHTML = 'INPUT ERROR! Must enter integer';
     }
     function correct() {
-        msgBox.setAttribute('style', 'color: #0f0');
+        msgBox.setAttribute('style', 'color: #0a0');
         msgBox.innerHTML = 'CORRECT!';
     }
     function incorrect(a) {
