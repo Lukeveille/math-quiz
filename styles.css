@@ -43,10 +43,11 @@ table {
     border-radius: 15px;
     box-shadow: 5px 5px 16px #000;
     display: inline-block;
-    margin-top: 30px;
-    min-width: 300px;
+    margin: 30px auto 0 auto;
+    max-width: 300px;
     padding: 50px 30px 50px 30px;
     font-weight: bold;
+    display: block;
 }
 .react {
     background: linear-gradient(to bottom right, #398DD1 0%, #34C7E8 100%);
