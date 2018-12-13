@@ -5,9 +5,9 @@ function DefaultScreen(props) {
   return (
     <div>
       Highest integer you'd like to see:
-      <input ref={input => {input && props.focus === 'range'? input.focus() : ''}} id="range" value={props.range} type="number" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 40? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
+      <input ref={input => {input && props.focus === 'range'? input.focus() : ''}} id="range" value={props.range} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 40? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
       How many questions?
-      <input ref={input => {input && props.focus === 'questions'? input.focus() : ''}} id="questions" value={props.questions} type="number" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 38? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
+      <input ref={input => {input && props.focus === 'questions'? input.focus() : ''}} id="questions" value={props.questions} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 38? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
       <div id="mathType">
         <p>Add/Subtract</p>
         <p>Multiplication</p>
@@ -23,7 +23,7 @@ function DefaultScreen(props) {
 
 function Question(props) {
   const question = (props.mathType === 3? props.rand1 * props.rand2 : props.rand1) + props.op + props.rand2 + ' = '
-  const answerBox = <input ref={input => {input && props.focus === 'answer'? input.focus() : ''}} id="answer" type="number" value={props.answer} size="5" className="qBox" onKeyUp={e => {e.keyCode == 13? props.button === 'Submit'? props.quizResult() : props.randomInt() : ''}} onChange={e => props.updateInput(e)} />
+  const answerBox = <input ref={input => {input && props.focus === 'answer'? input.focus() : ''}} id="answer" value={props.answer} size="5" className="qBox" onKeyUp={e => {e.keyCode == 13? props.button === 'Submit'? props.quizResult() : props.randomInt() : ''}} onChange={e => props.updateInput(e)} />
   return (
     <div>
       <p>Question {props.qCount} / {props.questions}</p>
