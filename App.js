@@ -5,9 +5,9 @@ function DefaultScreen(props) {
   return (
     <div>
       Highest integer you'd like to see:
-      <input ref={input => {input && props.focus === 'range'? input.focus() : ''}} id="range" value={props.range} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 40? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
+      <input ref={input => {input && props.focus === 'range'? (input.focus(), props.select? input.select() : '') : ''}} id="range" value={props.range} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {console.log(e); e.keyCode == 13? props.initialize() : e.keyCode == 40? (props.toggleFocus()) : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
       How many questions?
-      <input ref={input => {input && props.focus === 'questions'? input.focus() : ''}} id="questions" value={props.questions} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 38? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
+      <input ref={input => {input && props.focus === 'questions'? (input.focus(), props.select? input.select() : '') : ''}} id="questions" value={props.questions} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 38? (props.toggleFocus()) : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
       <div id="mathType">
         <p>Add/Subtract</p>
         <p>Multiplication</p>
@@ -91,6 +91,7 @@ class App extends React.Component {
       focus: 'questions',
       display: 'params',
       button: 'Submit',
+      select: false,
     }
     this.changeMathType = this.changeMathType.bind(this)
     this.initialize = this.initialize.bind(this)
@@ -233,6 +234,7 @@ class App extends React.Component {
         focus={this.state.focus}
         toggleFocus={this.toggleFocus}
         toggleMathType={this.toggleMathType}
+        select={this.state.select}
       />
     } else if (this.state.display === 'question') {
       return <Question
