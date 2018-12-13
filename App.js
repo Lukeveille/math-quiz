@@ -1,14 +1,14 @@
 function DefaultScreen(props) {
-  const addsub = React.createElement('input',{type: 'radio', defaultChecked: props.mathType == 1? true : false, name: "mathType", value: 1, onChange: () => { props.changeMathType(1) } });
-  const multi = React.createElement('input',{type: 'radio', defaultChecked: props.mathType == 2? true : false, name: "mathType", value: 2, onChange: () => { props.changeMathType(2) } });
-  const divide = React.createElement('input',{type: 'radio', defaultChecked: props.mathType == 3? true : false, name: "mathType", value: 3, onChange: () => { props.changeMathType(3) } });
+  const addsub = React.createElement('input',{type: 'radio', checked: props.mathType == 1? true : false, name: "mathType", value: 1, onChange: () => { props.changeMathType(1) } });
+  const multi = React.createElement('input',{type: 'radio', checked: props.mathType == 2? true : false, name: "mathType", value: 2, onChange: () => { props.changeMathType(2) } });
+  const divide = React.createElement('input',{type: 'radio', checked: props.mathType == 3? true : false, name: "mathType", value: 3, onChange: () => { props.changeMathType(3) } });
   return (
     <div>
       Highest integer you'd like to see:
-      <input id="range" value={props.range} type="text" className="fontStyle" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : ''}} />
+      <input ref={input => {input && props.focus === 'range'? input.focus() : ''}} id="range" value={props.range} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 38 || e.keyCode == 40? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
       How many questions?
-      <input autoFocus selected="selected" id="questions" value={props.questions} type="text" className="fontStyle" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : ''}} />
-      <div id="mathType" className="fontStyle">
+      <input ref={input => {input && props.focus === 'questions'? input.focus() : ''}} id="questions" value={props.questions} type="text" size="5" autoComplete="off" onChange={e => props.updateInput(e)} onKeyUp={e => {e.keyCode == 13? props.initialize() : e.keyCode == 38 || e.keyCode == 40? props.toggleFocus() : e.keyCode == 39? props.toggleMathType(true) : e.keyCode == 37? props.toggleMathType(false) : ''}} />
+      <div id="mathType">
         <p>Add/Subtract</p>
         <p>Multiplication</p>
         <p>Division</p>
@@ -16,14 +16,14 @@ function DefaultScreen(props) {
         {multi}
         {divide}
       </div>
-      <button type="button" className="fontStyle" id="start" onClick={() => {props.initialize()}} onKeyPress={e => {e.preventDefault()}} onKeyUp={e => {e.keyCode == 13? props.initialize() : ''}}>Let's do some math!</button>
+      <button type="button" id="start" onClick={() => {props.initialize()}} onKeyPress={e => {e.preventDefault()}} onKeyUp={e => {e.keyCode == 13? props.initialize() : ''}}>Let's do some math!</button>
     </div>
   )
 }
 
 function Question(props) {
   const question = (props.mathType === 3? props.rand1 * props.rand2 : props.rand1) + props.op + props.rand2 + ' = '
-  const answerBox = <input autoFocus id="answer" value={props.answer} size="5" className="qBox" onKeyUp={e => {e.keyCode == 13? props.button === 'Submit'? props.quizResult() : props.randomInt() : ''}} onChange={e => props.updateInput(e)} />
+  const answerBox = <input ref={input => {input && props.focus === 'answer'? input.focus() : ''}} id="answer" value={props.answer} size="5" className="qBox" onKeyUp={e => {e.keyCode == 13? props.button === 'Submit'? props.quizResult() : props.randomInt() : ''}} onChange={e => props.updateInput(e)} />
   return (
     <div>
       <p>Question {props.qCount} / {props.questions}</p>
@@ -67,10 +67,10 @@ function ScoreScreen(props) {
   return (
     <div>
       <p>YOU SCORED {props.score} / {props.questions}</p>
-      {props.showScore? score : <button autoFocus onClick={() => {props.scoreSwitch()}} onKeyPress={e => {e.preventDefault()}} onKeyUp={e => {e.keyCode == 13? props.scoreSwitch() : ''}}>Quiz Review</button>}
+      {props.showScore? score : <button ref={input => {input && props.focus === 'score'? input.focus() : ''}}  onClick={() => {props.scoreSwitch()}} onKeyPress={e => {e.preventDefault()}} onKeyUp={e => {e.keyCode == 13? props.scoreSwitch() : e.keyCode == 38 || e.keyCode == 40? props.toggleFocus() : ''}}>Quiz Review</button>}
       <br />
       <br />
-      <button onClick={() => {props.newQuiz()}} onKeyPress={e => {e.preventDefault()}} onKeyUp={e => {e.keyCode == 13? props.newQuiz() : ''}}>New Quiz</button>
+      <button ref={input => {input && props.focus === 'new'? input.focus() : ''}} onClick={() => {props.newQuiz()}} onKeyPress={e => {e.preventDefault()}} onKeyUp={e => {e.keyCode == 13? props.newQuiz() : e.keyCode == 38 || e.keyCode == 40? props.toggleFocus() : ''}}>New Quiz</button>
     </div>
   )
 }
@@ -88,6 +88,7 @@ class App extends React.Component {
       qCount: 0,
       score: 0,
       scoreBoard: [],
+      focus: 'questions',
       display: 'params',
       button: 'Submit',
     }
@@ -99,11 +100,21 @@ class App extends React.Component {
     this.randomInt = this.randomInt.bind(this)
     this.newQuiz = this.newQuiz.bind(this)
     this.scoreSwitch = this.scoreSwitch.bind(this)
+    this.toggleFocus = this.toggleFocus.bind(this)
+    this.toggleMathType = this.toggleMathType.bind(this)
   }
 
   updateInput(e) {
     const input =  e.target.id === 'range'? { range: e.target.value } : e.target.id === 'questions'? { questions: e.target.value } : { answer: e.target.value }
     this.setState(input)
+  }
+  toggleFocus() {
+    const focus = this.state.focus === 'questions'? 'range' : this.state.focus === 'range'? 'questions' : this.state.focus === 'score'? 'new' : this.state.showScore? '' : 'score';
+    this.setState({focus: focus})
+  }
+  toggleMathType(right) {
+    const mathType = this.state.mathType === 1? right? 2 : 3 : this.state.mathType === 2? right? 3 : 1 : right? 1 : 2;
+    this.setState({mathType: mathType})
   }
   changeMathType(option) {
     this.setState({mathType: option})
@@ -120,12 +131,14 @@ class App extends React.Component {
     this.clearError();
     this.setState({
       showScore: true,
+      focus: 'new',
     })
   }
   newQuiz() {
     this.clearError();
     this.setState({
       display: 'params',
+      focus: 'questions',
       score: 0,
       qCount: 0,
       scoreBoard: [],
@@ -142,6 +155,7 @@ class App extends React.Component {
       this.randomInt();
       this.setState({
         display: 'question',
+        focus: 'answer',
         showScore: false,
       });
     }
@@ -201,6 +215,7 @@ class App extends React.Component {
       score: result == this.state.answer? prevState.score + 1 : prevState.score,
       button: 'Next Question',
       display: this.state.qCount < this.state.questions? 'question' : 'score',
+      focus: this.state.qCount < this.state.questions? 'answer' : 'score',
       }
     });
   }
@@ -214,6 +229,10 @@ class App extends React.Component {
         updateInput={this.updateInput}
         initialize={this.initialize}
         changeMathType={this.changeMathType}
+        nameInput={this.nameInput}
+        focus={this.state.focus}
+        toggleFocus={this.toggleFocus}
+        toggleMathType={this.toggleMathType}
       />
     } else if (this.state.display === 'question') {
       return <Question
@@ -229,6 +248,7 @@ class App extends React.Component {
         op={this.state.op}
         randomInt={this.randomInt}
         answer={this.state.answer}
+        focus={this.state.focus}
       />
     } else if (this.state.display === 'score') {
       return <ScoreScreen
@@ -239,8 +259,11 @@ class App extends React.Component {
         scoreSwitch={this.scoreSwitch}
         showScore={this.state.showScore}
         scoreBoard={this.state.scoreBoard}
+        focus={this.state.focus}
+        toggleFocus={this.toggleFocus}
       />
     }
+    console.log(this.range);
   }
 
   render() {
