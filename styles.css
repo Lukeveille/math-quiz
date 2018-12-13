@@ -1,4 +1,8 @@
 /* Main Elements */
+body {
+    background: url('Math-awareness-month-feature-image.jpg');
+    background-size: 100%;
+}
 body,
 input,
 option {
