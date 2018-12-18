@@ -93,16 +93,6 @@ class App extends React.Component {
       button: 'Submit',
       select: false,
     }
-    this.changeMathType = this.changeMathType.bind(this)
-    this.initialize = this.initialize.bind(this)
-    this.updateInput = this.updateInput.bind(this)
-    this.quizResult = this.quizResult.bind(this)
-    this.display = this.display.bind(this)
-    this.randomInt = this.randomInt.bind(this)
-    this.newQuiz = this.newQuiz.bind(this)
-    this.scoreSwitch = this.scoreSwitch.bind(this)
-    this.toggleFocus = this.toggleFocus.bind(this)
-    this.toggleMathType = this.toggleMathType.bind(this)
   }
 
   updateInput(e) {
@@ -227,13 +217,12 @@ class App extends React.Component {
         mathType={this.state.mathType}
         range={this.state.range}
         questions={this.state.questions}
-        updateInput={this.updateInput}
-        initialize={this.initialize}
-        changeMathType={this.changeMathType}
-        nameInput={this.nameInput}
+        updateInput={this.updateInput.bind(this)}
+        initialize={this.initialize.bind(this)}
+        changeMathType={this.changeMathType.bind(this)}
         focus={this.state.focus}
-        toggleFocus={this.toggleFocus}
-        toggleMathType={this.toggleMathType}
+        toggleFocus={this.toggleFocus.bind(this)}
+        toggleMathType={this.toggleMathType.bind(this)}
         select={this.state.select}
       />
     } else if (this.state.display === 'question') {
@@ -242,13 +231,13 @@ class App extends React.Component {
         range={this.state.range}
         questions={this.state.questions}
         mathType={this.state.mathType}
-        updateInput={this.updateInput}
-        quizResult={this.quizResult}
+        updateInput={this.updateInput.bind(this)}
+        quizResult={this.quizResult.bind(this)}
         button={this.state.button}
         rand1={this.state.rand1}
         rand2={this.state.rand2}
         op={this.state.op}
-        randomInt={this.randomInt}
+        randomInt={this.randomInt.bind(this)}
         answer={this.state.answer}
         focus={this.state.focus}
       />
@@ -256,13 +245,13 @@ class App extends React.Component {
       return <ScoreScreen
         score={this.state.score}
         questions={this.state.questions}
-        newQuiz={this.newQuiz}
+        newQuiz={this.newQuiz.bind(this)}
         op={this.state.op}
-        scoreSwitch={this.scoreSwitch}
+        scoreSwitch={this.scoreSwitch.bind(this)}
         showScore={this.state.showScore}
         scoreBoard={this.state.scoreBoard}
         focus={this.state.focus}
-        toggleFocus={this.toggleFocus}
+        toggleFocus={this.toggleFocus.bind(this)}
       />
     }
     console.log(this.range);
